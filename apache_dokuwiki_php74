@@ -1,0 +1,18 @@
+<VirtualHost *:80>
+        ServerName    dokuwiki.linuxbuz.com
+        DocumentRoot  /var/www/html
+
+        <Directory ~ "/var/www/html/(bin/|conf/|data/|inc/)">
+            <IfModule mod_authz_core.c>
+                AllowOverride All
+                Require all denied
+            </IfModule>
+            <IfModule !mod_authz_core.c>
+                Order allow,deny
+                Deny from all
+            </IfModule>
+        </Directory>
+
+        ErrorLog   /var/log/apache2/dokuwiki_error.log
+        CustomLog  /var/log/apache2/dokuwiki_access.log combined
+</VirtualHost>
